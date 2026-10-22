@@ -41,3 +41,4 @@ jobs:
     - name: Verify Backend Imports
       run: |
         python -c "import fastapi, uvicorn, nbformat, nbconvert, playwright; print('All modules imported successfully')"
+
