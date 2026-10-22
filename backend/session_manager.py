@@ -75,3 +75,4 @@ def decrypt_session_data(cookie_val: str, max_age_seconds: int = 86400 * 7) -> O
         return json.loads(decrypted.decode("utf-8"))
     except (InvalidToken, Exception):
         return None
+

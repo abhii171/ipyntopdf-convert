@@ -257,3 +257,252 @@ button,input{font:inherit}.page{max-width:930px;margin:0 auto;padding:25px 24px 
   .drive-connect-card{flex-direction:column;text-align:center}
   .drive-header-bar{flex-direction:column;gap:10px;align-items:flex-start}
 }
+
+/* Tab Switcher */
+.tab-bar {
+  display: flex;
+  gap: 8px;
+  background: #0d1526;
+  padding: 6px;
+  border-radius: 14px;
+  border: 1px solid #25334d;
+}
+.tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  border: 0;
+  color: #92a4c0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.tab-btn:hover {
+  color: #e2e8f0;
+}
+.tab-btn.active {
+  background: #1e2b47;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+.tab-badge {
+  background: #7c91ff;
+  color: #0b1020;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 99px;
+}
+
+/* Drive Connect Card */
+.drive-connect-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #0d1526;
+  border: 1px dashed #3a4b6e;
+  border-radius: 16px;
+  padding: 24px;
+}
+.btn-drive-connect {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #7c91ff;
+  color: #0b1020;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: 0.2s;
+}
+.btn-drive-connect:hover {
+  background: #9bb0ff;
+  transform: translateY(-1px);
+}
+
+/* Drive Header Bar & User */
+.drive-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0d1526;
+  border: 1px solid #25334d;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+}
+.drive-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.drive-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1e2b48;
+  color: #8ca8ff;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+}
+.drive-email {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+.drive-meta {
+  font-size: 11px;
+  color: #7b8ea9;
+}
+
+/* Drive Toolbar & Search */
+.drive-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.search-input {
+  width: 100%;
+  background: #0d1526;
+  border: 1px solid #283752;
+  color: #e2e8f0;
+  padding: 10px 14px 10px 36px;
+  border-radius: 10px;
+  font-size: 13px;
+  outline: none;
+  transition: 0.2s;
+}
+.search-input:focus {
+  border-color: #7c91ff;
+  background: #121c33;
+}
+.btn-subtle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #162035;
+  border: 1px solid #293854;
+  color: #9eb0cc;
+  padding: 9px 13px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.2s;
+}
+.btn-subtle:hover {
+  background: #202d49;
+  color: #ffffff;
+}
+.btn-danger {
+  color: #f87171;
+  border-color: #4a2121;
+}
+.btn-danger:hover {
+  background: #331515;
+  color: #fca5a5;
+}
+
+/* Drive Picker Table / Rows */
+.drive-picker-container {
+  max-height: 320px;
+  overflow-y: auto;
+  border: 1px solid #25334d;
+  background: #0d1526;
+  border-radius: 12px;
+}
+.drive-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-bottom: 1px solid #1a253a;
+  cursor: pointer;
+  transition: 0.15s;
+}
+.drive-row:last-child {
+  border-bottom: none;
+}
+.drive-row:hover {
+  background: #131e33;
+}
+.drive-row.selected {
+  background: #162444;
+}
+.drive-check {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.drive-row-details {
+  flex: 1;
+  min-width: 0;
+}
+.drive-row-name {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #e2e8f0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.drive-row-sub {
+  display: flex;
+  gap: 8px;
+  font-size: 11px;
+  color: #7b8ea9;
+  margin-top: 2px;
+}
+.drive-empty {
+  padding: 40px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.drive-empty p {
+  margin: 0;
+  font-size: 13px;
+  color: #92a4c0;
+}
+.selected-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #8ca8ff;
+  font-weight: 600;
+}
+
+@media(max-width:600px){
+  .page{padding:18px 14px 28px}
+  .hero{padding:47px 0 26px}
+  .hero h1{letter-spacing:-1.7px}
+  .panel{padding:18px}
+  .formats{grid-template-columns:1fr}
+  .format-title{align-items:flex-start;gap:7px;flex-direction:column}
+  .drive-card{align-items:flex-start;flex-wrap:wrap}
+  .coming{margin-left:57px}
+  .nav-pill{font-size:0}
+  .nav-pill svg{width:17px;height:17px}
+  .drive-connect-card{flex-direction:column;text-align:center}
+  .drive-header-bar{flex-direction:column;gap:10px;align-items:flex-start}
+}
+

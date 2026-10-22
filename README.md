@@ -174,3 +174,67 @@ Outputs:
 [PASS] Test 15: CORS configuration verified.
 ALL 15 TEST SUITES PASSED SUCCESSFULLY!
 ```
+
+To enable Google Drive integration:
+
+1. Open the [Google Cloud Console](https://console.cloud.google.com/).
+2. Create or select a project.
+3. Enable the **Google Drive API**:
+   - Go to **APIs & Services** $\rightarrow$ **Library** $\rightarrow$ search for **Google Drive API** $\rightarrow$ click **Enable**.
+4. Configure the **OAuth Consent Screen**:
+   - User Type: **External** (or Internal for Workspace).
+   - Scopes: Add `.../auth/drive.readonly` and `.../auth/userinfo.email`.
+   - Add your test user emails in test mode.
+5. Create OAuth 2.0 Credentials:
+   - Go to **APIs & Services** $\rightarrow$ **Credentials** $\rightarrow$ **Create Credentials** $\rightarrow$ **OAuth client ID**.
+   - Application type: **Web application**.
+   - **Authorized JavaScript origins:**
+     - `http://localhost:5173`
+     - `http://127.0.0.1:8000`
+     - `https://your-frontend.vercel.app`
+   - **Authorized redirect URIs:**
+     - `http://127.0.0.1:8000/api/drive/callback`
+     - `https://your-cloud-run-backend.a.run.app/api/drive/callback`
+6. Copy the **Client ID** and **Client Secret** into your `.env` or Cloud Run environment variables.
+
+> **Why `drive.readonly` instead of `drive.file`?**
+> The `drive.file` scope only grants access to files created by the application or selected through the external Google Picker popup. `drive.readonly` is the least-privileged appropriate scope that allows NotebookFlow to provide a built-in search and selection interface across user Colab notebooks and Shared Drives. It cannot edit, modify, or delete any user documents.
+
+---
+
+## 🔒 Security & Privacy
+
+- **No Code Execution:** Conversion renders existing notebook structure, markdown, LaTeX, and outputs. Python code cells are never run on the server.
+- **Zero Permanent Disk Storage:** Files are written to ephemeral directories (`mkdtemp`) and deleted via background tasks immediately following response delivery or upon exception.
+- **Safe Filenames:** Filenames are sanitized to prevent directory traversal and shell injection.
+- **Resource Limits:** Individual files capped at 15 MB, batch requests capped at 50 MB, maximum 20 notebooks per request, with `asyncio.Semaphore` concurrency limiting.
+- **Stateless Tokens:** Access tokens are encrypted using Fernet (AES-GCM) inside an HttpOnly, SameSite, Secure cookie. No server-side database or token store is kept.
+
+---
+
+## 🧪 Testing
+
+Run the automated test suite covering all 15 scenarios:
+```powershell
+python backend/test_suite.py
+```
+Outputs:
+```
+[PASS] Test 1: Health endpoint is operational.
+[PASS] Test 2: Single notebook to HTML conversion succeeded.
+[PASS] Test 3: Single notebook to PDF conversion succeeded.
+[PASS] Test 4: Multiple notebooks to ZIP succeeded.
+[PASS] Test 5: Duplicate filenames are safely disambiguated.
+[PASS] Test 6: Invalid notebook JSON rejected with 400.
+[PASS] Test 7: Oversized notebook rejected with 413.
+[PASS] Test 8: Temporary file cleanup verified.
+[PASS] Test 9 & 10: OAuth CSRF state cryptographic validation verified.
+[PASS] Test: Stateless session Fernet encryption verified.
+[PASS] Test 11: Unauthenticated Drive calls correctly return 401.
+[PASS] Test 12: Drive auth-url handling verified.
+[PASS] Test 13: Drive mock listing and conversion end-to-end verified.
+[PASS] Test 14: Drive disconnect and session purge verified.
+[PASS] Test 15: CORS configuration verified.
+ALL 15 TEST SUITES PASSED SUCCESSFULLY!
+```
+

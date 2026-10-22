@@ -232,3 +232,4 @@ def revoke_token(token: Optional[str]) -> bool:
         return resp.ok
     except Exception:
         return False
+
