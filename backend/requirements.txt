@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+python-multipart
+nbconvert[webpdf]
+nbformat
+playwright
+playwright
+

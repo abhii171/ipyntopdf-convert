@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+ENV/
+env/
+*.log
+
+# Node & Frontend
+node_modules/
+frontend/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Playwright & Browser artifacts
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Agent / IDE files
+.agent/
+.agents/
+.gemini/
+.gsd/
+adapters/
+scripts/
+GSD-STYLE.md
+PROJECT_RULES.md
+model_capabilities.yaml
+VERSION
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
