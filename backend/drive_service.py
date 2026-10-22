@@ -14,6 +14,9 @@ import googleapiclient.discovery
 from googleapiclient.http import MediaIoBaseDownload
 import nbformat
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Least-privileged scope for listing and downloading user notebooks from My Drive and Shared Drives
 DRIVE_SCOPES = ["https://www.googleapis.com/auth/drive.readonly", "https://www.googleapis.com/auth/userinfo.email"]

@@ -12,6 +12,9 @@ import os
 import time
 from typing import Any, Dict, Optional, Tuple
 from cryptography.fernet import Fernet, InvalidToken
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 SESSION_COOKIE_NAME = "nbf_session"
