@@ -5,6 +5,14 @@
 !backend/.env.example
 !frontend/.env.example
 
+# Environment variables & secrets
+.env
+.env.*
+*.env
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+
 # Python
 __pycache__/
 *.py[cod]

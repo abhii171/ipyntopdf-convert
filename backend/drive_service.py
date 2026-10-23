@@ -15,6 +15,7 @@ from googleapiclient.http import MediaIoBaseDownload
 import nbformat
 import requests
 from dotenv import load_dotenv
+from notebook_utils import sanitize_and_parse_notebook
 
 load_dotenv()
 
@@ -213,10 +214,9 @@ def download_drive_notebook(creds: Credentials, file_id: str) -> Tuple[str, nbfo
     if not raw_bytes:
         raise ValueError(f"Notebook '{original_name}' is empty (0 bytes).")
 
-    # Validate notebook JSON
+    # Parse and sanitize notebook
     try:
-        notebook = nbformat.reads(raw_bytes.decode("utf-8"), as_version=4)
-        nbformat.validate(notebook)
+        notebook = sanitize_and_parse_notebook(raw_bytes)
         return original_name, notebook
     except Exception as exc:
         raise ValueError(f"'{original_name}' is not a valid Jupyter Notebook JSON: {exc}")

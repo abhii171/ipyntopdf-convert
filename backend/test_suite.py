@@ -324,6 +324,42 @@ def test_15_cors_headers():
     print("[PASS] Test 15: CORS configuration verified.")
 
 
+def test_16_colab_stream_metadata_sanitization():
+    """Test 16: Colab notebook with 'metadata' in stream output converts cleanly without schema error."""
+    import json
+    raw_colab_nb = {
+        "nbformat": 4,
+        "nbformat_minor": 5,
+        "metadata": {},
+        "cells": [
+            {
+                "cell_type": "code",
+                "execution_count": 1,
+                "metadata": {},
+                "source": "for epoch in range(10): print(f'Epoch {epoch}/10, Loss: 0.4577')",
+                "outputs": [
+                    {
+                        "output_type": "stream",
+                        "name": "stdout",
+                        "text": "Epoch 1/10, Loss: 0.4577\nEpoch 2/10, Loss: 0.3625\n",
+                        "metadata": {"tags": None},
+                    }
+                ],
+            }
+        ],
+    }
+    nb_bytes = json.dumps(raw_colab_nb).encode("utf-8")
+
+    files = [("files", ("cv_exp7.ipynb", nb_bytes, "application/x-ipynb+json"))]
+    res = client.post("/api/convert-zip", files=files, data={"output_format": "html"})
+    assert res.status_code == 200
+    with ZipFile(io.BytesIO(res.content)) as z:
+        assert "cv_exp7.html" in z.namelist()
+        html_content = z.read("cv_exp7.html").decode("utf-8")
+        assert "Epoch 1/10" in html_content
+    print("[PASS] Test 16: Colab stream metadata sanitization (cv_exp7.ipynb) verified.")
+
+
 if __name__ == "__main__":
     print("=" * 60)
     print("Running NotebookFlow Comprehensive Test Suite...")
@@ -343,6 +379,7 @@ if __name__ == "__main__":
     test_13_mock_drive_listing_and_conversion()
     test_14_disconnect_drive()
     test_15_cors_headers()
+    test_16_colab_stream_metadata_sanitization()
     print("=" * 60)
-    print("ALL 15 TEST SUITES PASSED SUCCESSFULLY!")
+    print("ALL 16 TEST SUITES PASSED SUCCESSFULLY!")
     print("=" * 60)

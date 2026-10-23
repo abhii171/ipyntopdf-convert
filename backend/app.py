@@ -38,6 +38,7 @@ from session_manager import (
     encrypt_session_data,
     verify_csrf_state,
 )
+from notebook_utils import sanitize_and_parse_notebook
 
 app = FastAPI(
     title="NotebookFlow API",
@@ -192,8 +193,7 @@ async def convert_zip(
 
             input_path = workdir / f"input_{len(converted_paths)}.ipynb"
             try:
-                notebook = nbformat.reads(data.decode("utf-8"), as_version=4)
-                nbformat.validate(notebook)
+                notebook = sanitize_and_parse_notebook(data)
                 nbformat.write(notebook, input_path)
             except Exception as exc:
                 raise HTTPException(400, f"'{original_name}' contains invalid notebook JSON ({exc}).")
